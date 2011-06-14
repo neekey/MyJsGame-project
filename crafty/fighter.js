@@ -8,7 +8,6 @@ Crafty.c('fighter', {
 	/* 行动力 */
 	_mobility: 2,
 	
-	
 	init: function(){
 		this.requires('playerHealth, playerGridWalk');
 	},
@@ -18,7 +17,7 @@ Crafty.c('fighter', {
 	 * @param {fighter} p
 	 */
 	attack: function( p ){
-		if( p.has('playerHealth') ){
+		if( p.has && p.has('playerHealth') ){
 			if( p !== this ){
 				// 获取对方防御力
 				var def = p._def;
