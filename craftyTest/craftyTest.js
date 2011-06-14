@@ -1,8 +1,6 @@
 ﻿window.onload = function() {
-	var gameController = {
-		player: null
-	};
 
+	////changge
   // Start crafty
   Crafty.init();
   Crafty.canvas();
@@ -49,27 +47,43 @@
 				this.unavaliableGrid();
 			}
 			if( e.button == 0 ){
-				if( gameController.player && this.isGridAvaliable() ){
-					if( gameController.player.curMapGrid ){
-						gameController.player.curMapGrid.releaseGrid();
+				if( playerC._curPlayer && this.isGridAvaliable() ){
+					if( playerC._curPlayer.curMapGrid ){
+						playerC._curPlayer.curMapGrid.releaseGrid();
 					}
 					var des = this.getGridCenterCoor();
-					//gameController.player.move( des.x, des.y );
-					gameController.player.gridMove( this._isoMapCoor.x, this._isoMapCoor.y );
-					this.occupyGrid( gameController.player );
-					gameController.player.curMapGrid = this;
+					//playerC .player.move( des.x, des.y );
+					playerC.doPlayerAction( this._isoMapCoor.x, this._isoMapCoor.y );
+					this.occupyGrid( playerC._curPlayer );
+					playerC._curPlayer.curMapGrid = this;
 				}
 				console.log('map coor x = ' + this._isoMapCoor.x + ' y = ' + this._isoMapCoor.y );
 				console.log('map coor x = ' + this._gridCenterCoor.x + ' y = ' + this._gridCenterCoor.y );
 			}
 		});
-		    
+		
+		// 创建角色控制器
+		var playerC = Crafty.e('playerController');
+		
 		var player = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse')
 		.playerGridWalkSetup( 3, 4, isoMap )
 		.setFootCoor( 448, 160 )
 		.playerWalkSetup( 'neekeyWalk' )._mobility = 1;
+		var player3 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse')
+		.playerGridWalkSetup( 2, 4, isoMap )
+		.setFootCoor( 320, 160 )
+		.playerWalkSetup( 'neekeyWalk' )._mobility = 1;
 		var player2 = Crafty.e('2D, Canvas, controls, ballOne, ballTwo, Mouse')
 		.attr({w: 50, h: 50, x: 500, h: 50, z: 1000 });
+		
+		playerC.setPlayerQueue([ player, player3 ])
+		.setPlayerAction('attack')
+		.bind('playerActived', function(){
+			// 使前一个player停止走动
+			this._playerQueue[ this._playerQueue.length - 1 ].stopWalk();
+			this._curPlayer.walk();
+		});
+		
 		
 		Crafty('playerWalk').each(function(){
 			this.attr( { w: 70, h: 124, z: 99 } )
@@ -96,29 +110,22 @@
 						grid = isoMap.getGrid( map[ i ].x, map[ i ].y );
 						grid.setGridSprite('hover');
 					}
-					
-					
 				}
 			}).bind('click', function( e ){
 				player2.flashSprite('ballOne', function(){ console.log('ball one finished!') } )
 				.flashSprite('ballTwo', function(){ console.log('ball two finished!') })
 				.flashSprite('ballOne', function(){ console.log('ball three finished!') } );
-				var player = gameController.player; 
+				var player = playerC._curPlayer; 
 				if( player ){
-					
+					/*
 					if( !player._isMoving ){
 						player.stopWalk();
-						gameController.player = this;
+						playerC.setPlayer( this );
 						this.walk();
-					}
+					} */
+					playerC.doPlayerAction( this );
 				}
-				else {
-					gameController.player = this;
-					this.walk();
-				}
-				var _this = gameController.player;
 				
-				_this.deHP( 20 );
 			});
 		});
 	});
