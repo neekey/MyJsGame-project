@@ -1,27 +1,31 @@
-
+ï»¿
 Crafty.c('menuUnit', {
 	
 	_childMenu: null,
 	_menuEventList: null,
 	
 	init: function(){
-		this.requires('2D, DOM, Color, Text');
-		// Ìí¼ÓÊó±ê»®¹ıÊÂ¼ş
+		this.requires('2D, DOM, Color, Text, Mouse');
+		// æ›¿æ¢åŸæœ‰element
+		this.undraw();
+		this._element = document.createElement("div");
+		
+		// æ·»åŠ é¼ æ ‡åˆ’è¿‡äº‹ä»¶
 		this.bind('mouseover', function(){
 			
 			if( this._childMenu && this._childMenu.has && this._childMenu.has('menu') ){
-				// Õ¹¿ª×Ó²Ëµ¥
+				// å±•å¼€å­èœå•
 				this._childMenu.showMenu();
 			}
 		})
 		.bind('mouseout', function(){
 			if( this._childMenu && this._childMenu.has && this._childMenu.has('menu') ){
-				// ¹Ø±Õ×Ó²Ëµ¥
+				// å…³é—­å­èœå•
 				this._childMenu.hideMenu();
 			}
 		})
 		.bind('click', function( e ){
-			// Èô×ó¼üµ¥»ú
+			// è‹¥å·¦é”®å•æœº
 			if( e.button == 0 ){
 				if( this._menuEventList ){
 					var fn, i;
@@ -30,11 +34,12 @@ Crafty.c('menuUnit', {
 					}
 				}
 			}
-		});
+		})
+		.attr({w: 200, h: 50, z: 1000 });
 	},
 	
 	/**
-	 * Ìí¼Ó²Ëµ¥µã»÷ÊÂ¼ş
+	 * æ·»åŠ èœå•ç‚¹å‡»äº‹ä»¶
 	 * @param {Function} fn
 	 */
 	addMenuEvent: function( fn ){
@@ -45,13 +50,13 @@ Crafty.c('menuUnit', {
 			this._menuEventList.push( fn );
 		}
 		else {
-			Crafty.$e.log('addMenuEvent: ²ÎÊıÓĞÎó£¡');
+			Crafty.$e.log('addMenuEvent: å‚æ•°æœ‰è¯¯ï¼');
 		}
 		return this;
 	},
 	
 	/**
-	 * ÉèÖÃ²Ëµ¥µ¥ÔªÎÄ×ÖÑÕÉ«
+	 * è®¾ç½®èœå•å•å…ƒæ–‡å­—é¢œè‰²
 	 */
 	fontColor: function( colorValue ){
 		this.css( 'color', colorValue );
@@ -59,7 +64,7 @@ Crafty.c('menuUnit', {
 });
 
 /**
- * ²Ëµ¥
+ * èœå•
  */
 Crafty.c('menu', {
 	
@@ -67,21 +72,27 @@ Crafty.c('menu', {
 	
 	init: function(){
 		this.requires('2D, DOM, Color');
+		//this.DOM( document.createElement("div") );
+		//this.undraw();
+		//this._element = document.createElement("div");
 	},
 	
 	/**
-	 * ³õÊ¼»¯²Íµ¥
+	 * åˆå§‹åŒ–é¤å•
 	 */
 	menuSetup: function( m ){
 		if( Crafty.$getType( m ) == 'Object' ){
 			this._buildMenu( m, this );
 		}
 		else {
-			Crafty.$e.log('menuSetup: ²ÎÊıÓĞÎó£¡');
+			Crafty.$e.log('menuSetup: å‚æ•°æœ‰è¯¯ï¼');
 		}
 	},
 	
 	_buildMenu: function( m, scope ){
+		// åˆå§‹åŒ–é¤å•çš„é•¿å®½
+		scope.attr({w: 0, h: 0 });
+		
 		var name, unit;
 		if( !scope._menuList ){
 			scope._menuList = {};
@@ -91,16 +102,19 @@ Crafty.c('menu', {
 			unit = Crafty.e('menuUnit')
 			.text( name );
 			scope._menuList[ name ] = unit;
-			// ½«µ¥Ôª·ÅÈëµ½²Ëµ¥ÖĞ
-			unit.css('display', 'block' ); // ĞŞ¸ÄÏÔÊ¾ÑùÊ½
+			// å°†å•å…ƒæ”¾å…¥åˆ°èœå•ä¸­
+			unit.css('display', 'block' ); // ä¿®æ”¹æ˜¾ç¤ºæ ·å¼
 			scope._element.appendChild( unit._element );
-			
-			// ÈôÎªµ¥¸ö²Ëµ¥µ¥Ôª
+			scope.attr({
+				w: scope.attr('w') < unit.attr('w') ? unit.attr('w') : scope.attr('w'),
+				h: scope.attr('h') + unit.attr('h')
+			});
+			// è‹¥ä¸ºå•ä¸ªèœå•å•å…ƒ
 			if( Crafty.$getType( m[ name ] ) == 'Function' ){
 				unit.addMenuEvent( m[ name ] )
 			}
 			else {
-				// ÈôÎªÒ»¸ö×Ó²Ëµ¥
+				// è‹¥ä¸ºä¸€ä¸ªå­èœå•
 				if( Crafty.$getType( m[ name ] ) == 'Object' ){
 					unit._childMenu = Crafty.e('menu');
 					arguments.callee( m[ name ], unit._childMenu );

@@ -2824,7 +2824,8 @@ Crafty.c("Color", {
 		this.bind("draw", function(e) {
 			if(e.type === "DOM") {
 				e.style.background = this._color;
-				e.style.lineHeight = 0;
+				/* @Neekey */
+				//e.style.lineHeight = 0;
 			} else if(e.type === "canvas") {
 				if(this._color) e.ctx.fillStyle = this._color;
 				e.ctx.fillRect(e.pos._x,e.pos._y,e.pos._w,e.pos._h);
