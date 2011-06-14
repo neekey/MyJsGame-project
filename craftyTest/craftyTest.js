@@ -65,24 +65,30 @@
 		// 创建角色控制器
 		var playerC = Crafty.e('playerController');
 		
-		var player = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse')
-		.playerGridWalkSetup( 3, 4, isoMap )
+		var player = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
+		player.playerGridWalkSetup( 3, 4, isoMap )
 		.setFootCoor( 448, 160 )
 		.playerWalkSetup( 'neekeyWalk' )._mobility = 1;
-		var player3 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse')
-		.playerGridWalkSetup( 2, 4, isoMap )
+		var player3 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
+		player3.playerGridWalkSetup( 2, 4, isoMap )
 		.setFootCoor( 320, 160 )
 		.playerWalkSetup( 'neekeyWalk' )._mobility = 1;
-		var player2 = Crafty.e('2D, Canvas, controls, ballOne, ballTwo, Mouse')
-		.attr({w: 50, h: 50, x: 500, h: 50, z: 1000 });
+		var player2 = Crafty.e('2D, Canvas, controls, ballOne, ballTwo, Mouse');
+		player2.attr({w: 50, h: 50, x: 500, h: 50, z: 1000 });
 		
 		playerC.setPlayerQueue([ player, player3 ])
 		.setPlayerAction('attack')
 		.bind('playerActived', function(){
 			// 使前一个player停止走动
-			this._playerQueue[ this._playerQueue.length - 1 ].stopWalk();
+			if( this._previousPlayer ){
+				this._previousPlayer.stopWalk();
+			}
 			this._curPlayer.walk();
-		});
+		})
+		.bind('playerInactived', function(){
+			
+		})
+		.controllerLaunch();
 		
 		
 		Crafty('playerWalk').each(function(){
@@ -123,7 +129,10 @@
 						playerC.setPlayer( this );
 						this.walk();
 					} */
-					playerC.doPlayerAction( this );
+					if( playerC.doPlayerAction( this ) ){
+						playerC.nextPlayerTurn();
+					}
+					
 				}
 				
 			});

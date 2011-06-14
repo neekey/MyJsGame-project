@@ -26,12 +26,12 @@ Crafty.c('playerHealth',{
 		if( value > 0 ){
 			if( this._playerHP > value ){
 				this._playerHP -= value;
-				this.trigger('playerHPDecrease');
+				//this.trigger('playerHPDecrease');
 			}
 			else {
 				this._playerHP = 0;
-				this.trigger('playerHPDecrease');
-				this.trigger('playerHPEmpty');
+				//this.trigger('playerHPDecrease');
+				//this.trigger('playerHPEmpty');
 			}
 			
 		}

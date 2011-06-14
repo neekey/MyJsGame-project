@@ -23,14 +23,18 @@ Crafty.c('fighter', {
 				// 获取对方防御力
 				var def = p._def;
 				p.deHP( this._atk - def );
+				return true;
 			}
 			else {
 				Crafty.$e.log('attack: 无法攻击玩家自身!');
+				return false;
 			}
 		}
 		else {
 			Crafty.$e.log('attack: 攻击对象类型有误!');
+			return false;
 		}
+		
 	},
 	
 	getAvaliavleMap: function(){
