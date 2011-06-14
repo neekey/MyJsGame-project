@@ -1,0 +1,30 @@
+﻿<! DOCTYPE HTML>
+	<head>
+		<script src='crafty/crafty.js'></script>
+		<script src='relyJS.js'></script>
+		<script src='ny.js'></script>
+		<script src='ny.util.js'></script>
+		<script src='ny.config.js'></script>
+		<script src='ny.error.js'></script>
+		<script src='ny.resource.js'></script>
+		<script src='ny.interface.js'></script>
+		<script src='ny.view.js'></script>
+		<script src='ny.controller.js'></script>
+		<script src='ny.appController.js'></script>
+		<script src='game/game.js'></script>
+		<script>
+			$r.config({log: false });
+			$n.resource.load({ url: [
+				'ny.event.js'
+			]});
+		</script>
+		
+	</head>
+	<body>
+		<audio id='audio' src='audio/horse.ogg' controls="controls" ></audio>
+		<script>
+			var au = $n.util.getDom('#audio');
+			var test = '';
+		</script>
+	</body>
+</HEML>
