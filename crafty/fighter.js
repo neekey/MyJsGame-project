@@ -18,8 +18,19 @@ Crafty.c('fighter', {
 	 * @param {fighter} p
 	 */
 	attack: function( p ){
-		// 获取对方防御力
-		var def = p._def;
+		if( p.has('playerHealth') ){
+			if( p !== this ){
+				// 获取对方防御力
+				var def = p._def;
+				p.deHP( this._atk - def );
+			}
+			else {
+				Crafty.$e.log('attack: 无法攻击玩家自身!');
+			}
+		}
+		else {
+			Crafty.$e.log('attack: 攻击对象类型有误!');
+		}
 	},
 	
 	getAvaliavleMap: function(){
