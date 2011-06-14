@@ -36,5 +36,18 @@ Crafty.c( 'playerController', {
 		else {
 			Crafty.$e.log('doPlayerAction: 当前控制玩家不存在或者未指定执行的动作！');
 		}
+	},
+	
+	/**
+	 * 设置当前控制器制定的游戏玩家
+	 * @param {Object} p
+	 */
+	setPlayer: function( p ){
+		if( Crafty.$getType( p ) == 'Object' ){
+			this._curPlayer= p;
+		}
+		else {
+			Crafty.$e.log('setPlayer: 参数有误！');
+		}
 	}
 });
