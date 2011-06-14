@@ -19,13 +19,13 @@
     });
     
 	// 设置flashSprite 
-	Crafty.flashSprite( 'flash', 'image/flash/ball.png', [ [0,0,50,50], [50,0,50,50], [0,50,50,50],[50,50,50,50] ] );
-	Crafty.flashSprite( 'flash2', 'image/flash/ball2.png', [ [0,0,50,50], [50,0,50,50], [0,50,50,50],[50,50,50,50] ] );
+	Crafty.flashSprite( 'ballOne', 'image/flash/ball.png', [ [0,0,50,50], [50,0,50,50], [0,50,50,50],[50,50,50,50] ] );
+	Crafty.flashSprite( 'ballTwo', 'image/flash/ball2.png', [ [0,0,50,50], [50,0,50,50], [0,50,50,50],[50,50,50,50] ] );
 
   // loading场景
   Crafty.scene("loading", function() {
     // 预先加载资源
-    Crafty.load(["image/char/1.png", "image/map/map2.png", "image/char/3.png", "image/char/4.png" ], function() {
+    Crafty.load(["image/char/1.png", "image/map/map2.png", "image/char/3.png", "image/char/4.png", "image/flash/ball.png", 'image/flash/ball2.png' ], function() {
       Crafty.scene("main"); //when everything is loaded, run the main scene
     });
   });
@@ -68,7 +68,7 @@
 		.playerGridWalkSetup( 3, 4, isoMap )
 		.setFootCoor( 448, 160 )
 		.playerWalkSetup( 'neekeyWalk' )._mobility = 1;
-		var player2 = Crafty.e('2D, Canvas, controls, flash, flash2, Mouse')
+		var player2 = Crafty.e('2D, Canvas, controls, ballOne, ballTwo, Mouse')
 		.attr({w: 50, h: 50, x: 500, h: 50, z: 1000 });
 		
 		Crafty('playerWalk').each(function(){
@@ -100,7 +100,9 @@
 					
 				}
 			}).bind('click', function( e ){
-				player2.flashSprite('flash').flashSprite('flash2');
+				player2.flashSprite('ballOne', function(){ console.log('ball one finished!') } )
+				.flashSprite('ballTwo', function(){ console.log('ball two finished!') })
+				.flashSprite('ballOne', function(){ console.log('ball three finished!') } );
 				var player = gameController.player; 
 				if( player ){
 					
