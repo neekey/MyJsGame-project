@@ -448,9 +448,8 @@ Crafty.c( 'playerGridWalk', {
 		grids[ 2 ].y = cur.y + 1;
 		grids[ 3 ].y = grids[ 2 ].y;
 		// 获取 格子0的x轴坐标
-		grids[ 0 ].x = ( cur.y % 2 == 0 ) ? cur.x - 1 : cur.x;
-		grids[ 0 ].x = grids[ 0 ].x < 0 ? 0 : grids[ 0 ].x;
-		grids[ 1 ].x = grids[ 0 ].x + 1;
+		grids[ 0 ].x = ( cur.x - 1 ) < 0 ? 0 : cur.x - 1;
+		grids[ 1 ].x = cur.x + 1
 		grids[ 2 ].x = grids[ 1 ].x;
 		grids[ 3 ].x = grids[ 0 ].x;
 		
