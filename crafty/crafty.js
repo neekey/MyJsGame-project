@@ -1071,8 +1071,10 @@ Crafty.c("2D", {
 	* @param y Y position of the point
 	*/
 	isAt: function(x,y) {
+		
 		return this.x <= x && this.x + this.w >= x &&
-			   this.y <= y && this.y + this.h >= y;
+			this.y <= y && this.y + this.h >= y;
+		
 	},
 	
 	/**
@@ -1646,6 +1648,14 @@ Crafty.c("DOM", {
 		
 		style.opacity = this._alpha;
 		style[prefix+"Opacity"] = this._alpha;
+		
+		// @Neekey fix for dom visible value to change entity hide or show
+		if( this._visible ){
+			this.css('display', 'block');
+		}
+		else {
+			this.css('display', 'none');
+		}
 		
 		//if not version 9 of IE
 		if(Crafty.support.prefix === "ms" && Crafty.support.version < 9) {
@@ -2825,7 +2835,7 @@ Crafty.c("Color", {
 			if(e.type === "DOM") {
 				e.style.background = this._color;
 				/* @Neekey */
-				//e.style.lineHeight = 0;
+				// e.style.lineHeight = 0;
 			} else if(e.type === "canvas") {
 				if(this._color) e.ctx.fillStyle = this._color;
 				e.ctx.fillRect(e.pos._x,e.pos._y,e.pos._w,e.pos._h);
@@ -3086,10 +3096,11 @@ Crafty.DrawManager = (function() {
 			q.sort(function(a,b) { return a._global - b._global; });
 			for(;i<l;i++) {
 				current = q[i];
-				if(current._visible && current.__c.Canvas) {
-					current.draw();
-					current._changed = false;
+				if( current._visible && current.__c.Canvas ){
+						current.draw();
+						current._changed = false;
 				}
+				
 			}
 		},
 
