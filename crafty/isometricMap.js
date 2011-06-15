@@ -19,7 +19,7 @@ Crafty.c( 'isoMapGrid', {
 	_gridCenterCoor: null,
 	
 	init: function(){
-		this.requires( '2D, Canvas, Mouse' );
+		this.requires( '2D, Canvas, Mouse, Text' );
 		this._gridSprite = [];
 	},
 	
@@ -167,9 +167,12 @@ Crafty.c( 'isoMapGrid', {
 });
 
 Crafty.c( 'isometricMap', {
-	_gridMap: [],
+	/**
+	 * 存储对象，一个类似二维数组的对象
+	 */
+	_gridMap: null,
 	init: function(){
-		    
+		this._gridMap = {};
 		// 添加地图拖动效果
 		Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e) {
 			if(e.button > 1) return;
@@ -212,10 +215,10 @@ Crafty.c( 'isometricMap', {
 				spriteArr.push( name );
 			}
 			len = spriteArr.length;
+			var col;
 			
 			for( var i = 0; i <= mapW; i++ ) {
 			
-				this._gridMap.push( [] );
 				for( var y = 0; y <= mapH; y++ ) {
 				
 					which = Crafty.randRange( 0,len -1 );
@@ -225,16 +228,30 @@ Crafty.c( 'isometricMap', {
 					var tile = Crafty.e("isoMapGrid, " + name)
 					// 设置z坐标
 					.attr('z', i + 1 * y + y )
-					.areaMap([64,0],[128,32],[128,96],[64,128],[0,96],[0,32])
-					// 设置 tile 地图坐标
-					._setMapCoor( i, y );
-					// 将格子放入到数组中
-					this._gridMap[ i ].push( tile );
+					.areaMap([64,0],[128,32],[128,96],[64,128],[0,96],[0,32]);
+					
+					if( y % 2 == 0 ){
+						// 设置地图坐标
+						tile._setMapCoor( i * 2, y );
+						// 将格子放入到数组中
+						if( !this._gridMap[ i * 2 ] ){
+							this._gridMap[ i * 2 ] = {};
+						}
+						this._gridMap[ i * 2 ][ y ] = tile;
+					}
+					else {
+						// 设置地图坐标
+						tile._setMapCoor( i * 2 + 1, y );
+						// 将格子放入到数组中
+						if( !this._gridMap[ i * 2 + 1 ] ){
+							this._gridMap[ i * 2 + 1 ] = {};
+						}
+						this._gridMap[ i * 2 + 1 ][ y ] = tile;
+					} 
 					// 将格子加入到地图中
 					iso.place( i, y, 0, tile );
 					// 初始化格子的精灵动画
 					tile.isoMapGridSetup( nameArray[ name ] );
-					
 				}
 			}
 		}
@@ -283,8 +300,8 @@ Crafty.c( 'isometricMap', {
 	forEachGrid: function( fn ){
 		// 便利所有grid 绑定事件
 		var i, j;
-		for( i = 0; this._gridMap[ i ]; i++ ){
-			for( j = 0; this._gridMap[ i ][ j ]; j++ ){
+		for( i in  this._gridMap ){
+			for( j in this._gridMap[ i ] ){
 				fn.call( this._gridMap[ i ][ j ] );
 			}
 		}
