@@ -37,6 +37,7 @@ Crafty.c('fighter', {
 	},
 	
 	getAvaliavleMap: function(){
+		/*
 		var cur = this._curGridCoor,
 		m = this._mobility, map = [];
 		// 先获取两端点坐标
@@ -74,5 +75,30 @@ Crafty.c('fighter', {
 			}
 		}
 		return map;
+		*/
+		var cur = this._curGridCoor,
+		m = this._mobility, result = [],
+		x1 = cur.x - m, y1 = cur.y - m,
+		x2 = cur.x + m, y2 = cur.y + m,
+		len, i, j;
+		
+		for( i = y1; i <= y2; i+= 2 ){
+			len = i - y1 + 1;
+			for( j = 0; j < len; j++ ){
+				if( ( x1 + j )>= 0 && ( i - j ) >= 0 ){
+					result.push( { x: x1 + j, y: i - j } );
+				}
+			}	
+		}
+		for( i = x1 + 2; i <= x2; i+= 2 ){
+			len = x2 - i + 1;
+			for( j = 0; j < len; j++ ){
+				if( ( i + j ) >= 0 && ( y2 - j ) >= 0 ){
+					result.push( { x: i + j, y: y2 - j } );
+				}
+			}	
+		}
+		
+		return result;
 	}
 });
