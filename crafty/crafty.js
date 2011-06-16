@@ -1640,8 +1640,22 @@ Crafty.c("DOM", {
 			co = {x: coord[0], y: coord[1] },
 			prefix = Crafty.support.prefix;
 			
-		style.top = ~~(this._y) + "px";
-		style.left = ~~(this._x) + "px";
+		// 若父元素不是场景容器
+		if( this._element.parentNode && this._element.parentNode.parentNode &&
+			this._element.parentNode.parentNode.id !== 'cr-stage' ){
+			var parent = this._element.parentNode;
+			var parTop = parent.style.top;
+				parTop = parTop.substring(0, parTop.indexOf('p'));
+			var parLeft = parent.style.left;
+				parLeft = parLeft.substring(0, parLeft.indexOf('p'));
+			
+			style.top = ~~( this._y ) - ~~parTop + 'px';
+			style.left = ~~( this._x ) - ~~parLeft + 'px';
+		}
+		else {
+			style.top = ~~(this._y) + "px";
+			style.left = ~~(this._x) + "px";
+		}
 		style.width = ~~(this._w) + "px";
 		style.height = ~~(this._h) + "px";
 		style.zIndex = this._z;
@@ -1694,7 +1708,15 @@ Crafty.c("DOM", {
 	},
 	
 	undraw: function() {
-		Crafty.stage.inner.removeChild(this._element);
+		if( this._element ){
+			/**
+			 * @Neekey
+			 * fix bug,if this._element is not in Crafty.stage.inner
+			 * if an Entity contains a child Entity, this will cause this bug
+			 */
+			Crafty.stage.inner.appendChild( this._element );
+			Crafty.stage.inner.removeChild(this._element);
+		}
 		return this;
 	},
 	
