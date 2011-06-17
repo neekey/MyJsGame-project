@@ -4,7 +4,7 @@
 
 Crafty.scene("fight", function(){
 		
-	var isoMap = Crafty.e( 'isometricMap' )
+	isoMap = Crafty.e( 'isometricMap' )
 	.isometricMapSetup( {
 		grass: {
 			normal: 'grass', hover: 'grassHover', unavaliable: 'grassUnavaliable'
@@ -19,6 +19,7 @@ Crafty.scene("fight", function(){
 			this.unavaliableGrid();
 		}
 		if( e.button == 0 ){
+			console.log('map alpha ' + this.attr('alpha') );
 			if( playerC._curPlayer && this.isGridAvaliable() ){
 				if( playerC._curPlayer.curMapGrid ){
 					playerC._curPlayer.curMapGrid.releaseGrid();
@@ -38,27 +39,87 @@ Crafty.scene("fight", function(){
 	
 	
 	// 创建障碍物
-	var house = Crafty.e('obstacle')
-	.obstacleSetup('house', [ 120, 375 ], 2, 4, [ [0, 183], [293, 35], [358, 122 ], [358, 255], [120, 375 ], [0, 316 ] ] )
-	.setToMap( isoMap, 6, 14 );
-	console.log(house.attr('w') + '，' + house.attr('h') + '，' + house.attr('z') ); 
+	Crafty.e('obstacle')
+	.obstacleSetup('house1', [ 118, 353 ], 2, 3, [ [0, 101], [201, 0], [316, 59 ], [314, 256], [118, 353 ], [1, 294 ] ] )
+	.setToMap( isoMap, 7, 3 );
+	Crafty.e('obstacle')
+	.obstacleSetup('house1', [ 118, 353 ], 2, 3, [ [0, 101], [201, 0], [316, 59 ], [314, 256], [118, 353 ], [1, 294 ] ] )
+	.setToMap( isoMap, 1, 9);
+	Crafty.e('obstacle')
+	.obstacleSetup('house2', [ 252, 385 ], 4, 2, [ [0, 58], [115, 0], [355, 121 ], [354, 317], [239, 373 ], [0, 257 ] ] )
+	.setToMap( isoMap, 14, 4).attr('z', 16);
+	Crafty.e('obstacle')
+	.obstacleSetup('house3', [ 122, 370 ], 2, 2, [ [0, 310], [35,43], [123,0 ], [209,47], [244,310 ], [122,370 ] ] )
+	.setToMap( isoMap, 4, 14);
+	Crafty.e('obstacle')
+	.obstacleSetup('house2', [ 252, 385 ], 4, 2, [ [0, 58], [115, 0], [355, 121 ], [354, 317], [239, 373 ], [0, 257 ] ] )
+	.setToMap( isoMap, 4, 20);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 6, 14);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 15, 5);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 5, 15);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 6, 16);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 7, 19);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 9, 19);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 16, 16);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree1', [ 60, 169 ], 1, 1, [ [0, 56], [52, 0], [117, 47 ], [68, 102], [81, 132 ], [61, 145 ], [40, 130 ], [56, 100 ] ] )
+	.setToMap( isoMap, 17, 19);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree2', [ 54, 189 ], 1, 1, [ [0, 67], [43, 0], [103, 69 ], [61, 117], [74, 150 ], [55, 162 ], [33, 145 ], [49, 119 ] ] )
+	.setToMap( isoMap, 5, 17);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree2', [ 54, 189 ], 1, 1, [ [0, 67], [43, 0], [103, 69 ], [61, 117], [74, 150 ], [55, 162 ], [33, 145 ], [49, 119 ] ] )
+	.setToMap( isoMap, 10, 18);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree2', [ 54, 189 ], 1, 1, [ [0, 67], [43, 0], [103, 69 ], [61, 117], [74, 150 ], [55, 162 ], [33, 145 ], [49, 119 ] ] )
+	.setToMap( isoMap, 16, 4);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree2', [ 54, 189 ], 1, 1, [ [0, 67], [43, 0], [103, 69 ], [61, 117], [74, 150 ], [55, 162 ], [33, 145 ], [49, 119 ] ] )
+	.setToMap( isoMap, 6, 18);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree2', [ 54, 189 ], 1, 1, [ [0, 67], [43, 0], [103, 69 ], [61, 117], [74, 150 ], [55, 162 ], [33, 145 ], [49, 119 ] ] )
+	.setToMap( isoMap, 8, 20);
+	Crafty.e('obstacle')
+	.obstacleSetup('tree2', [ 54, 189 ], 1, 1, [ [0, 67], [43, 0], [103, 69 ], [61, 117], [74, 150 ], [55, 162 ], [33, 145 ], [49, 119 ] ] )
+	.setToMap( isoMap, 17, 15);
+	
 	
 	
 	// 创建角色控制器
 	var playerC = Crafty.e('playerController');
 	
-	var player = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
-	player.playerGridWalkSetup( 8, 4, isoMap )
-	.setFootCoor( 576, 160 )
-	.playerWalkSetup( 'neekeyWalk' )._mobility = 2;
-	var player3 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
-	player3.playerGridWalkSetup( 4, 4, isoMap )
-	.setFootCoor( 320, 160 )
-	.playerWalkSetup( 'neekeyWalk' )._mobility = 3;
-	var player2 = Crafty.e('2D, Canvas, controls, ballOne, ballTwo, Mouse');
-	player2.attr({w: 50, h: 50, x: 500, h: 50, z: 1000 });
+	var m1 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse, attrSprite');
+	m1.playerGridWalkSetup( 7, 5, isoMap )
+	.setFootCoor( 382, 177 )
+	.playerWalkSetup( 'M1' )._mobility = 2;
+	var f1 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
+	f1.playerGridWalkSetup( 13, 7, isoMap )
+	.setFootCoor( 766, 241 )
+	.playerWalkSetup( 'F1' )._mobility = 3;
+	var b1 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
+	b1.playerGridWalkSetup( 12, 14, isoMap )
+	.setFootCoor( 702, 465 )
+	.playerWalkSetup( 'B1' )._mobility = 3;
+	var b2 = Crafty.e('2D, Canvas, controls, fighter, playerHealthBar, Mouse');
+	b2.playerGridWalkSetup( 14, 14, isoMap )
+	.setFootCoor( 830, 465 )
+	.playerWalkSetup( 'B2' )._mobility = 3;
 	
-	playerC.setPlayerQueue([ player, player3 ])
+	playerC.setPlayerQueue([ m1, f1, b1, b2 ])
 	.bind('playerActived', function(){
 		// 使前一个player停止走动
 		if( this._previousPlayer ){
@@ -99,9 +160,10 @@ Crafty.scene("fight", function(){
 				}
 			}
 		}).bind('click', function( e ){
+			/*
 			player2.flashSprite('ballOne', function(){ console.log('ball one finished!') } )
 			.flashSprite('ballTwo', function(){ console.log('ball two finished!') })
-			.flashSprite('ballOne', function(){ console.log('ball three finished!') } );
+			.flashSprite('ballOne', function(){ console.log('ball three finished!') } ); */
 			var player = playerC._curPlayer; 
 			if( e.button == 2 ){
 				if( player == this ){
@@ -151,4 +213,53 @@ Crafty.scene("fight", function(){
 			menu.hideMenu();
 		}
 	}, 'myMenu' ); 
+	
+	// 设置drama 角色
+	var charM1 = Crafty.e('dramaChar')
+	.dramaCharSetup({
+		depressed: 'm1depressed',
+		normal: 'm1normal',
+		serious: 'm1serious',
+		shy: 'm1shy',
+		smile: 'm1smile',
+		surprised: 'm1surprised'
+	});
+	
+	var charF1 = Crafty.e('dramaChar')
+	.dramaCharSetup({
+		normal: 'f1normal',
+		sad: 'f1sad',
+		shy: 'f1shy',
+		smile: 'f1smile',
+		surprised: 'f1surprised'
+	});
+	
+	var charB1 = Crafty.e('dramaChar')
+	.dramaCharSetup({
+		depressed: 'b1depressed',
+		angry: 'b1angry',
+		smile: 'b1smile'
+	});
+	
+	var charB2 = Crafty.e('dramaChar')
+	.dramaCharSetup({
+		normal: 'b2normal'
+	});
+	
+	var drama = Crafty.e('drama' )
+	.dramaSetup({
+		安东: charM1,
+		夏尔蒂: charF1,
+		维纶骑士: charB1,
+		维纶军官: charB2
+	}, Crafty.drama('beforeFight' ) )
+	.onDramaBegin( function(){ console.log('drama begin!'); } )
+	.onDramaFinished( function(){ console.log('drama end!'); } )
+	.playDrama(); 
+	
+	/*
+	var story = Crafty.e('story')
+	.storySetup(story1)
+	.playStory();   */
+
 });

@@ -1,12 +1,22 @@
-﻿
+﻿/*===============================================
+	音效
+================================================*/
+Crafty.audio.add('mainMenuBg', '../audio/mainMenu.ogg');
+
 /*===============================================
 	游戏主菜单
 ================================================*/
 /**
  * 主背景
  */
-Crafty.sprite("../image/mainMenu/bg.jpg", {
-	mainMenuBg: [62,84,900, 600]
+Crafty.sprite("../image/mainMenu/bg.png", {
+	mainMenuBg: [0, 0 ,900, 600]
+});
+Crafty.sprite("../image/mainMenu/play.png", {
+	mainMenuPlay: [0, 0 ,270, 76]
+});
+Crafty.sprite("../image/mainMenu/aboutUs.png", {
+	mainMenuAboutUs: [0, 0 ,270, 76]
 });
 
 /*===============================================
@@ -16,9 +26,10 @@ Crafty.sprite("../image/mainMenu/bg.jpg", {
 /**
  * 设置人物角色图片
  */
-Crafty.characterSprite( 'neekeyWalk', "../image/char/1.png" );
-Crafty.characterSprite( 'neekeyWalk2', "../image/char/3.png" );
-Crafty.characterSprite( 'neekeyWalk3', "../image/char/4.png" );
+Crafty.characterSprite( 'M1', "../image/char/m1.png" );
+Crafty.characterSprite( 'F1', "../image/char/f1.png" );
+Crafty.characterSprite( 'B1', "../image/char/b1.png" );
+Crafty.characterSprite( 'B2', "../image/char/b2.png" );
 
 /**
  * 设置地图格子图片
@@ -31,8 +42,20 @@ Crafty.sprite(128, "../image/map/map2.png", {
 /**
  * 设置建筑障碍物
  */
-Crafty.sprite("../image/map/house.png", {
-	house: [0,0, 358, 375]
+Crafty.sprite("../image/fightScene/house1.png", {
+	house1: [0,0, 317, 353]
+});
+Crafty.sprite("../image/fightScene/house2.png", {
+	house2: [0,0, 357, 374]
+});
+Crafty.sprite("../image/fightScene/house3.png", {
+	house3: [0,0, 245, 372]
+});
+Crafty.sprite("../image/fightScene/tree1.png", {
+	tree1: [0,0, 118, 146]
+});
+Crafty.sprite("../image/fightScene/tree2.png", {
+	tree2: [0,0, 104, 164]
 });
 
 /**
@@ -40,6 +63,80 @@ Crafty.sprite("../image/map/house.png", {
  */
 Crafty.flashSprite( 'ballOne', '../image/flash/ball.png', [ [0,0,50,50], [50,0,50,50], [0,50,50,50],[50,50,50,50] ] );
 Crafty.flashSprite( 'ballTwo', '../image/flash/ball2.png', [ [0,0,50,50], [50,0,50,50], [0,50,50,50],[50,50,50,50] ] );
+
+/*===============================================
+	剧情
+================================================*/
+
+/**
+ * 设置剧情人物
+ */
+ 
+// 男一号
+Crafty.sprite("../image/drama/maleLead/depressed.png", {
+	m1depressed: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/maleLead/normal.png", {
+	m1normal: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/maleLead/serious.png", {
+	m1serious: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/maleLead/shy.png", {
+	m1shy: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/maleLead/smile.png", {
+	m1smile: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/maleLead/surprised.png", {
+	m1surprised: [0, 0, 323, 482 ]
+});
+
+// 男二号
+Crafty.sprite("../image/drama/femaleLead/surprised.png", {
+	f1surprised: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/femaleLead/normal.png", {
+	f1normal: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/femaleLead/sad.png", {
+	f1sad: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/femaleLead/shy.png", {
+	f1shy: [0, 0, 323, 482 ]
+});
+Crafty.sprite("../image/drama/femaleLead/smile.png", {
+	f1smile: [0, 0, 323, 482 ]
+});
+
+// 坏人(骑士)
+Crafty.sprite("../image/drama/qishi/smile.png", {
+	b1smile: [0, 0, 303, 493 ]
+});
+Crafty.sprite("../image/drama/qishi/angry.png", {
+	b1angry: [0, 0, 303, 493 ]
+});
+Crafty.sprite("../image/drama/qishi/depressed.png", {
+	b1depressed: [0, 0, 303, 493 ]
+});
+
+// 坏人（军官）
+Crafty.sprite("../image/drama/junguan/normal.png", {
+	b2normal: [0, 0, 323, 482 ]
+});
+
+
+// story bg
+Crafty.sprite("../image/drama/bg/1.jpg", {
+	storyBg1: [0, 0, 900, 600 ]
+});
+Crafty.sprite("../image/drama/bg/2.jpg", {
+	storyBg2: [0, 0, 900, 600 ]
+});
+Crafty.sprite("../image/drama/bg/3.jpg", {
+	storyBg3: [0, 0, 900, 600 ]
+});
+
 
 // 加载所有的资源
 Crafty.scene("res", function() {

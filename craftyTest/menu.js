@@ -2,6 +2,7 @@
  * this is for menu test
  */
 window.onload = function() {
+	
 	// ≥ı ºª∞Crafty
 	Crafty.init();
 	Crafty.canvas();
@@ -29,8 +30,15 @@ window.onload = function() {
 		var menu = Crafty.e('menu')
 		.menuSetup({
 			menu1: function(){ console.log('1'); },
-			menu2: function(){ console.log('2'); }
-		}); 
+			menu2: {
+				menu21: function(){ console.log('21'); },
+				menu22: {
+					menu221: function(){  console.log('221'); }
+				},
+				menu23: function(){ console.log('23'); }
+			}
+		}, 'myMenu' ); 
+		
 		
 	});
-}
+};

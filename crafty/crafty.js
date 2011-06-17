@@ -1649,12 +1649,12 @@ Crafty.c("DOM", {
 			var parLeft = parent.style.left;
 				parLeft = parLeft.substring(0, parLeft.indexOf('p'));
 			
-			style.top = ~~( this._y ) - ~~parTop + 'px';
-			style.left = ~~( this._x ) - ~~parLeft + 'px';
+			style.top = ~~( this._y ) - ~~parTop - Crafty.viewport.y + 'px';
+			style.left = ~~( this._x ) - ~~parLeft - Crafty.viewport.x + 'px';
 		}
 		else {
-			style.top = ~~(this._y) + "px";
-			style.left = ~~(this._x) + "px";
+			style.top = ~~(this._y) - Crafty.viewport.y + "px";
+			style.left = ~~(this._x) - Crafty.viewport.x + "px";
 		}
 		style.width = ~~(this._w) + "px";
 		style.height = ~~(this._h) + "px";
@@ -1911,6 +1911,10 @@ Crafty.extend({
 				
 				init: function() {
 					this.addComponent("Sprite");
+					/**
+					 * @Neekey fix bug for continusly bind draw event
+					 */
+					this.unbind("draw", this._spriteDraw); 
 					this.__trim = [0,0,0,0];
 		
 					//draw now
@@ -1923,27 +1927,31 @@ Crafty.extend({
 					this.w = this.__coord[2];
 					this.h = this.__coord[3];
 					
-					this.bind("draw", function(e) {
-						var co = e.co,
-							pos = e.pos,
-							context = e.ctx;
-							
-						if(e.type === "canvas") {
-							//draw the image on the canvas element
-							context.drawImage(this.img, //image element
-											 co.x, //x position on sprite
-											 co.y, //y position on sprite
-											 co.w, //width on sprite
-											 co.h, //height on sprite
-											 pos._x, //x position on canvas
-											 pos._y, //y position on canvas
-											 pos._w, //width on canvas
-											 pos._h //height on canvas
-							);
-						} else if(e.type === "DOM") {
-							this._element.style.background = "url('" + this.__image + "') no-repeat -" + co.x + "px -" + co.y + "px";
-						}
-					});
+					this.bind("draw", this._spriteDraw );
+				},
+				
+				_spriteDraw: function(e) {
+					var co = e.co,
+						pos = e.pos,
+						context = e.ctx;
+						
+					if(e.type === "canvas") {
+						
+						//draw the image on the canvas element
+						context.drawImage(this.img, //image element
+										 co.x, //x position on sprite
+										 co.y, //y position on sprite
+										 co.w, //width on sprite
+										 co.h, //height on sprite
+										 pos._x, //x position on canvas
+										 pos._y, //y position on canvas
+										 pos._w, //width on canvas
+										 pos._h //height on canvas
+						);
+						
+					} else if(e.type === "DOM") {
+						this._element.style.background = "url('" + this.__image + "') no-repeat -" + co.x + "px -" + co.y + "px";
+					}
 				},
 				
 				sprite: function(x,y,w,h) {

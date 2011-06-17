@@ -1,5 +1,7 @@
-#beginPlay, #aboutUs {
-	cursor: hand;
+.myMenu {
+	background: #cccccc;
+	border: 2px solid black;
+	padding: px;
 }
 .myMenuChild {
 	/* padding: 5px;  */

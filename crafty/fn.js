@@ -74,7 +74,7 @@ Crafty.extend({
 		style: function(){
 			var dom = arguments[ 0 ];
 			// 单个属性
-			if( this.getType( arguments[ 1 ] ) == 'String' ){
+			if( typeof arguments[ 1 ] == 'string' ){
 				var type = arguments[ 1 ], value = arguments[ 2 ];
 				if( value === undefined ){
 					return this.getComputedStyle( dom, type );
@@ -84,7 +84,7 @@ Crafty.extend({
 				}
 			}
 			// 多个属性
-			else if(  this.getType( arguments[ 1 ] ) == 'Object' ) {
+			else if(  Crafty.$getType( arguments[ 1 ] ) == 'Object' ) {
 				var attr, styObj = arguments[ 1 ];
 				for( attr in styObj ){
 					dom.style.setProperty( attr, styObj[ attr ] );

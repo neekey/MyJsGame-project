@@ -171,9 +171,13 @@ Crafty.c( 'isometricMap', {
 	 * 存储对象，一个类似二维数组的对象
 	 */
 	_gridMap: null,
+	_mapRowNum: 0,
+	_mapColNum: 0,
+	
 	init: function(){
 		this._gridMap = {};
 		// 添加地图拖动效果
+		/*
 		Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e) {
 			if(e.button > 1) return;
 			var base = {x: e.clientX, y: e.clientY};
@@ -191,6 +195,10 @@ Crafty.c( 'isometricMap', {
 				Crafty.removeEvent(this, Crafty.stage.elem, "mousemove", scroll);
 			});
 		});
+		*/
+		// 设置地图viewport （为了第一幕）
+		Crafty.viewport.x = -130;
+		Crafty.viewport.y = -15;
 	},
 	
 	/**
@@ -205,6 +213,9 @@ Crafty.c( 'isometricMap', {
 			// 默认值
 			mapW = mapW || 20;
 			mapH = mapH || 20;
+			// 设置地图长宽
+			this._mapRowNum = mapW * 2;
+			this._mapColNum = mapH;
 			
 			var iso = Crafty.isometric.init(128),
 			which, name,
@@ -234,6 +245,8 @@ Crafty.c( 'isometricMap', {
 						// 设置地图坐标
 						tile._setMapCoor( i * 2, y );
 						// 将格子放入到数组中
+						// 添加格子坐标
+						//tile.text('----（' + ( i * 2 ) + '，' + y + '）' );
 						if( !this._gridMap[ i * 2 ] ){
 							this._gridMap[ i * 2 ] = {};
 						}
@@ -242,6 +255,7 @@ Crafty.c( 'isometricMap', {
 					else {
 						// 设置地图坐标
 						tile._setMapCoor( i * 2 + 1, y );
+						//tile.text('----（' +  ( i * 2 +1 ) + '，' + y + '）' );
 						// 将格子放入到数组中
 						if( !this._gridMap[ i * 2 + 1 ] ){
 							this._gridMap[ i * 2 + 1 ] = {};
@@ -326,13 +340,13 @@ Crafty.c( 'isometricMap', {
 	 * 获得地图格子的行数
 	 */
 	getMapRow: function(){
-		return this._gridMap.length;
+		return this._mapRowNum;
 	},
 	
 	/**
 	 * 获得地图格子的列数
 	 */
 	getMapCol: function(){
-		return this._gridMap[ 0 ].length;
+		return this._mapColNum;
 	}
 });

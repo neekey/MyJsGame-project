@@ -208,7 +208,11 @@ Crafty.c('playerWalk',{
 				// 设置脚底坐标
 				this.setFootCoor( newFootX, newFootY );
 				// 设置z坐标
-				this.attr( 'z', 100 + this.y );
+				/*
+				this.attr( 'z', 100 + this.y ); */
+				if( this._curGridCoor ){
+					this.attr('z', this._isoMap.getGrid( this._curGridCoor.x, this._curGridCoor.y ).attr('z') + 10);
+				}
 				this._curMoveFrame = 0;
 				
 			}
