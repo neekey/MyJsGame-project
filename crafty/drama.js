@@ -76,16 +76,15 @@ Crafty.c('dramaChar', {
 	 * 添加渐隐效果
 	 */
 	_onFaceChange: function(){
-		this.attrSprite({ alpha: 0.7 }, 200 )
+		this.attrSprite({ alpha: 0.8 }, 200 )
 		.attrSprite({ alpha: 1 }, 200 );
-		
 	},
 	
 	/**
 	 * 角色消失
 	 */
 	charFadeOut: function( callback ){
-		this.attrSprite({ alpha: 0 }, 1000, callback);
+		this.attrSprite({ alpha: 0 }, 200, callback);
 		return this;
 	},
 	
@@ -93,7 +92,7 @@ Crafty.c('dramaChar', {
 	 * 角色出现
 	 */
 	charFadeIn: function( callback ){
-		this.attrSprite({ alpha: 1 }, 500, callback );
+		this.attrSprite({ alpha: 1 }, 200, callback );
 		return this;
 	}
 	
@@ -110,7 +109,6 @@ Crafty.c('dramaDialog', {
 		attr({ w: 60, h: 20, x: 10, y: 340, z: 10000 })
 		.color('#ffffff')
 		.css('padding', 10);
-		
 	},
 	
 	/**
@@ -192,7 +190,7 @@ Crafty.c('drama', {
 		this._dramaCharList = {};
 		var rect = Crafty.viewport.rect();
 		// 设置背景组件
-		this._dramaBg = Crafty.e('2D, Canvas, Color')
+		this._dramaBg = Crafty.e('2D, Canvas, Color, Mouse')
 		.attr({ x: 130, y: 15, w: rect._w, h: rect._h, z: 999, alpha: 0.5 })
 		.color('rgb(0, 0, 0)');
 		// 设置文字显示区域
@@ -200,10 +198,8 @@ Crafty.c('drama', {
 		.attr({ w: 840, h: 150, x: 10, y: 400 })
 		.color('#ffffff')
 		.css('padding', '20');
-		
 		this._dramaBeginEvent = [];
 		this._dramaFinishEvent = [];
-		
 	},
 	
 	dramaSetup: function( charObj, script ){
