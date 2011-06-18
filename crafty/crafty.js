@@ -1649,12 +1649,12 @@ Crafty.c("DOM", {
 			var parLeft = parent.style.left;
 				parLeft = parLeft.substring(0, parLeft.indexOf('p'));
 			
-			style.top = ~~( this._y ) - ~~parTop - Crafty.viewport.y + 'px';
-			style.left = ~~( this._x ) - ~~parLeft - Crafty.viewport.x + 'px';
+			style.top = ~~( this._y ) - ~~parTop + 'px';
+			style.left = ~~( this._x ) - ~~parLeft + 'px';
 		}
 		else {
-			style.top = ~~(this._y) - Crafty.viewport.y + "px";
-			style.left = ~~(this._x) - Crafty.viewport.x + "px";
+			style.top = ~~(this._y) + "px";
+			style.left = ~~(this._x) + "px";
 		}
 		style.width = ~~(this._w) + "px";
 		style.height = ~~(this._h) + "px";
@@ -2483,7 +2483,8 @@ Crafty.extend({
 		
 		for(l=q.length;i<l;++i) {
 			//check if has mouse component
-			if(!q[i].has("Mouse")) continue;
+			// @Neekey fix for add  !q[i]._visible
+			if(!q[i].has("Mouse") || !q[i]._visible ) continue;
 			
 			var current = q[i],
 				flag = false;
