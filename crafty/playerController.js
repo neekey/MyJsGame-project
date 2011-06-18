@@ -17,11 +17,9 @@ Crafty.c( 'playerController', {
 	 * @param {String} action 方法名称
 	 */
 	setPlayerAction: function( action ){
-		if( Crafty.$getType( action ) == 'String' ){
+		if( this._curPlayerAction != action ){
 			this._curPlayerAction = action;
-		}
-		else  {	
-			Crafty.$e.log('setPlayerAction: 参数有误！');
+			this.trigger('playerActionChange');
 		}
 		return this;
 	},
